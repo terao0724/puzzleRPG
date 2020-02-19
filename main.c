@@ -20,13 +20,13 @@
 int main(void)
 {
   my_monster box[7] = {{"青龍", 1, 100, 100, 100, 10, '@', 0, 0, 10}, //名前 レベル hp 最大hp 攻撃力 回復力 属性 属性クラス 経験値 経験値上限
-                  {"朱雀" ,1, 100, 200, 200, 20, '&', 1, 0, 200},
-                  {"玄武", 1, 100, 100, 300, 30, '#', 2, 0, 300},
-                  {"白虎", 1, 100, 200, 400, 40, '*', 3, 0, 400},
-                  {"NO"},
-                  {"NO"},
-                  {"NO"},
-                 };
+                       {"朱雀" ,1, 100, 200, 200, 20, '&', 1, 0, 200},
+                       {"玄武", 1, 100, 300, 300, 30, '#', 2, 0, 300},
+                       {"白虎", 1, 100, 400, 400, 40, '*', 3, 0, 400},
+                       {"NO"},
+                       {"NO"},
+                       {"NO"},
+                      };
 
   enemy first_enemys[3] = {{"スライム", 500,  50, '@'},
                            {"ゴブリン", 1000, 80, '#'},
@@ -52,7 +52,7 @@ int main(void)
 
   char gems[14]={0};
   char copy_gems[14] = {0}; //ジェムのラスト3つだけが消えた場合の重複を避けるため
-  //char gems[14] = {'H','H','*','@','*','*','*','@','*','#','#','H','H','H'}; //テスト用
+  //char gems[14] = {'H','H','@','H','@','@','*','@','*','#','#','H','H','H'}; //テスト用
   int start_gem = 0; //移動させるジェムの番地
   int end_gem = 0;   //移動先の番地
   int combo=0;       //コンボ数用変数
@@ -98,17 +98,20 @@ int main(void)
       printf("  パーティ\n");
       for (int i=0; i<4; i++)
       {
-        if (box[party[i]].hp == 0)
+        if (party[i] != 10)
         {
-          printf("  \x1b[44m\x1b[30m%s{レベル: %2d 属性: %c  HP: %3d/%3d AP: %4d}\033[m\x1b[m\n", 
+          if (box[party[i]].hp == 0)
+          {
+            printf("  \x1b[44m\x1b[30m%s{レベル:%1d  属性:%c  HP:%3d/%3d  AP:%4d}\033[m\x1b[m\n", 
                          box[party[i]].name, box[party[i]].revel, box[party[i]].property,
                          box[party[i]].hp, box[party[i]].max_hp, box[party[i]].attack);
-        }
-        else
-        {
-          printf("  %s{レベル: %2d 属性: %c  HP: %3d/%3d AP: %4d}\n", 
+          }
+          else
+          {
+            printf("  %s{レベル:%1d  属性:%c  HP:%3d/%3d  AP:%4d}\n", 
                          box[party[i]].name, box[party[i]].revel, box[party[i]].property, 
                          box[party[i]].hp, box[party[i]].max_hp,  box[party[i]].attack);
+          }
         }
       }
       printf("\n");
